@@ -1,7 +1,7 @@
-x_1 = float(input())
-y_1 = float(input())
-x_2 = float(input())
-y_2 = float(input())
+x_1 = float(int(input()))
+y_1 = float(int(input()))
+x_2 = float(int(input()))
+y_2 = float(int(input()))
 
 if x_1 == 0 or x_2 == 0 or y_1 == 0 or y_2 == 0:
     print("Write correct data")
