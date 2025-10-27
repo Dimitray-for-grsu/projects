@@ -22,13 +22,13 @@ print("Общее колличество пакетов: ", number_of_packets)
 print("Общее колличество потерянных пакетов: ", number_of_loosing_packets)
 print("Длинна самой длинной последовательности потерянных пакетов: " ,biggest_loosing_sequence)
 print("Процент потерь: ", percentage_of_loosing_packets, "%")
-if percentage_of_loosing_packets in range(0, 1):
+if 0 <= percentage_of_loosing_packets < 1:
     print("Качество сети отличное")
-elif percentage_of_loosing_packets in range(1, 5):
+elif 1 <= percentage_of_loosing_packets < 5:
     print("Качество сети хорошее")
-elif percentage_of_loosing_packets in range(5, 10):
+elif 5 <= percentage_of_loosing_packets < 10:
     print("Качество сети удовлетворительное")
-elif percentage_of_loosing_packets in range(10, 20):
+elif 10 <= percentage_of_loosing_packets < 20:
     print("Качество сети плохое")
 elif percentage_of_loosing_packets > 20:
     print("Критическое сосотояние сети")
