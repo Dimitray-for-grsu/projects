@@ -25,3 +25,25 @@ def rle_encode(instr):
         encode_str += str(rude_sequaence[i])
 
     return encode_str
+
+
+def rle_decode(code_str):
+    decoded = ""
+    i = 0
+
+    while i < len(code_str):
+        if code_str[i].isdigit():
+            count = int(code_str[i])
+            char = code_str[i + 1]
+            decoded += char * count
+            i += 2
+        else:
+            decoded += code_str[i]
+            i += 1
+
+    return decoded
+
+
+
+print(rle_encode("AAAADDSAAADW"))
+print(rle_decode((rle_encode("AAAADDSAAADW"))))
