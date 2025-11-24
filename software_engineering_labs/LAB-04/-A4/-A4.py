@@ -129,8 +129,8 @@ file = open('genedata.txt', 'w', encoding = 'utf-8')
 file.write('Gerasimchik Dmitrey\n')
 file.write('Genetic Searching\n')
 file.write('-' * 80 + '\n')
-commands_ = read_commands('commands.0.txt')
-for index, command in enumerate(commands_):
+commands = read_commands('commands.0.txt')
+for index, command in enumerate(commands):
     operation = command[0]
     param = command[1]
     if operation == 'search':
