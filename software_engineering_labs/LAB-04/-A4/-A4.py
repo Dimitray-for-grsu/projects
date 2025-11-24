@@ -124,5 +124,28 @@ def mode(data, protein):
     return 'missing'
 
 
-print(rle_encode("AAAADDSAAADW"))
-#print(rle_decode((rle_encode("AAAADDSAAADWW"))))
+data1 = genetic_data('sequences.0.txt')
+file = open('genedata.txt', 'w', encoding = 'utf-8')
+file.write('Gerasimchik Dmitrey\n')
+file.write('Genetic Searching\n')
+file.write('-' * 80 + '\n')
+commands_ = read_commands('commands.0.txt')
+for index, command in enumerate(commands_):
+    operation = command[0]
+    param = command[1]
+    if operation == 'search':
+        result_ = search(data1, param)
+        file.write(f'{index + 1:03d}   {operation}   {rle_decode(param)}\n{result_}\n')
+        file.write('-' * 80 + '\n')
+        index += 1
+    elif operation == 'diff':
+        param1 = command[2]
+        result_ = diff(data1, param, param1)
+        file.write(f'{index + 1:03d}   {operation}   {param}   {param1}\namino-acids difference:\n{result_}\n')
+        file.write('-' * 80 + '\n')
+        index += 1
+    elif operation == 'mode':
+        result_ = mode(data1, param)
+        file.write(f'{index + 1:03d}   {operation}   {param}\namino-acid occurs:\n{result_[0]}\t\t\t{result_[1]}\n')
+        file.write('-' * 80 + '\n')
+        index += 1
