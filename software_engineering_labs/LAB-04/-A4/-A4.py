@@ -72,9 +72,14 @@ def read_commands(filename):
                     parts[2].strip()
                 )
             commands.append(command_data)
-        return commands
+        return commands 
 
-
+def search(data, input_sequence):
+    input_sequence = rle_decode(input_sequence)
+    for sequence in data:
+        if input_sequence in sequence[2]:
+            return f'organism\t\t\t\tprotein\n{sequence[1]}\t{sequence[0]}'
+    return f'organism\t\t\t\tprotein\nnot found'
 
 
 print(rle_encode("AAAADDSAAADW"))
