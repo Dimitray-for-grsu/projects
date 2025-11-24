@@ -26,11 +26,9 @@ def rle_encode(instr):
 
     return encode_str
 
-
 def rle_decode(code_str):
     decoded = ""
     i = 0
-
     while i < len(code_str):
         if code_str[i].isdigit():
             count = int(code_str[i])
@@ -41,9 +39,27 @@ def rle_decode(code_str):
             decoded += code_str[i]
             i += 1
 
+    def read_data(filename):
+        data = []
+        with open(filename, 'r', encoding='utf-8') as f:
+            for item in f:
+                parts = item.strip().split('\t')
+                protein_data = (
+                    parts[0].strip(),
+                    parts[1].strip(),
+                    decode(parts[2].strip())
+                )
+                data.append(protein_data)
+            return data
     return decoded
 
 
 
+
+
+
+
+
+
 print(rle_encode("AAAADDSAAADW"))
-print(rle_decode((rle_encode("AAAADDSAAADW"))))
+#print(rle_decode((rle_encode("AAAADDSAAADWW"))))
