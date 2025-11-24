@@ -38,25 +38,41 @@ def rle_decode(code_str):
         else:
             decoded += code_str[i]
             i += 1
-
-    def read_data(filename):
-        data = []
-        with open(filename, 'r', encoding='utf-8') as f:
-            for item in f:
-                parts = item.strip().split('\t')
-                protein_data = (
-                    parts[0].strip(),
-                    parts[1].strip(),
-                    rle_decode(parts[2].strip())
-                )
-                data.append(protein_data)
-            return data
     return decoded
 
 
+def genetic_data(filename):
+    data = []
+    with open(filename, 'r', encoding = 'utf-8') as f:
+        for item in f:
+            parts = item.strip().split('\t')
+            protein_data = (
+                parts[0].strip(),
+                parts[1].strip(),
+                rle_decode(parts[2].strip())
+            )
+            data.append(protein_data)
+        return data
 
 
-
+def read_commands(filename):
+    commands = []
+    with open(filename, 'r', encoding = 'utf-8') as f:
+        for line in f:
+            parts = line.strip().split('\t')
+            if parts[0] == 'search' or parts[0] == 'mode':
+                command_data = (
+                    parts[0].strip(),
+                    parts[1].strip()
+                )
+            else:
+                command_data = (
+                    parts[0].strip(),
+                    parts[1].strip(),
+                    parts[2].strip()
+                )
+            commands.append(command_data)
+        return commands
 
 
 
