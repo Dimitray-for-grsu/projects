@@ -47,7 +47,7 @@ def rle_decode(code_str):
                 protein_data = (
                     parts[0].strip(),
                     parts[1].strip(),
-                    decode(parts[2].strip())
+                    rle_decode(parts[2].strip())
                 )
                 data.append(protein_data)
             return data
