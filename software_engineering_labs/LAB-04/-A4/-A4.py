@@ -26,6 +26,7 @@ def rle_encode(instr):
 
     return encode_str
 
+
 def rle_decode(code_str):
     decoded = ""
     i = 0
@@ -72,14 +73,38 @@ def read_commands(filename):
                     parts[2].strip()
                 )
             commands.append(command_data)
-        return commands 
+        return commands
 
+1
 def search(data, input_sequence):
     input_sequence = rle_decode(input_sequence)
     for sequence in data:
         if input_sequence in sequence[2]:
             return f'organism\t\t\t\tprotein\n{sequence[1]}\t{sequence[0]}'
     return f'organism\t\t\t\tprotein\nnot found'
+
+
+def diff(data, protein1, protein2):
+    seq1 = seq2 = None
+    for protein in data:
+        if protein[0] == protein1:
+            seq1 = protein[2]
+        elif protein[0] == protein2:
+            seq2 = protein[2]
+    if seq1 is None and seq2 is None:
+        return f"missing: {protein1}, {protein2}"
+    elif seq1 is None:
+        return f"missing: {protein1}"
+    elif seq2 is None:
+        return f"missing: {protein2}"
+    min_length = min(len(seq1), len(seq2))
+    difference = 0
+    for i in range(min_length):
+        if seq1[i] != seq2[i]:
+            difference += 1
+    difference = difference + abs(len(seq1) - len(seq2))
+    return str(difference)
+
 
 
 print(rle_encode("AAAADDSAAADW"))
