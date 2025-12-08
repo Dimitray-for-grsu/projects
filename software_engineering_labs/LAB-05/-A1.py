@@ -127,3 +127,11 @@ def analyze_workout_types(workouts):
 
     print()
     return workout_types
+
+
+def find_user_workouts(users, user_name):
+
+    user = next((u for u in users if u['name'].lower() == user_name.lower()), None)
+    if user:
+        return user['workouts']
+    return []
