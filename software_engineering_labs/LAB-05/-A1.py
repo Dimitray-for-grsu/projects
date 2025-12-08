@@ -66,7 +66,7 @@ def get_stats(users, workouts):
 
 
 def analyze_user_activity(users, workouts):
-    
+
     for user in users:
         user['workouts'] = [w for w in workouts if w['user_id'] == user['user_id']]
 
@@ -96,3 +96,34 @@ def analyze_user_activity(users, workouts):
         print()
 
     return user_stats
+
+
+def analyze_workout_types(workouts):
+
+    workout_types = {}
+    for workout in workouts:
+        workout_type = workout['type']
+        if workout_type not in workout_types:
+            workout_types[workout_type] = {
+                'count': 0,
+                'total_duration': 0,
+                'total_calories': 0
+            }
+        workout_types[workout_type]['count'] += 1
+        workout_types[workout_type]['total_duration'] += workout['duration']
+        workout_types[workout_type]['total_calories'] += workout['calories']
+
+    total_workouts = len(workouts)
+
+    print("РАСПРЕДЕЛЕНИЕ ПО ТИПАМ ТРЕНИРОВОК:")
+    for workout_type, stats in workout_types.items():
+        percentage = (stats['count'] / total_workouts) * 100
+        avg_duration = stats['total_duration'] / stats['count']
+        avg_calories = stats['total_calories'] / stats['count']
+
+        print(f"{workout_type}: {stats['count']} тренировок ({percentage:.1f}%)")
+        print(f"   Средняя длительность: {avg_duration:.0f} мин")
+        print(f"   Средние калории: {avg_calories:.0f} ккал")
+
+    print()
+    return workout_types
