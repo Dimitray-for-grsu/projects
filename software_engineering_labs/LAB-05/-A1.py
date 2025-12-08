@@ -230,3 +230,33 @@ def visualize_data(users, workouts, workout_types):
 
     plt.tight_layout()
     plt.show()
+
+
+def main():
+    users = load_users_data()
+    workouts = load_workouts_data()
+
+    if not users or not workouts:
+        print("Ошибка загрузки данных. Проверьте наличие файлов users.xml и workouts.xml")
+        return
+
+    for user in users:
+        user['workouts'] = [w for w in workouts if w['user_id'] == user['user_id']]
+
+    get_stats(users, workouts)
+
+    user_stats = analyze_user_activity(users, workouts)
+
+    workout_types = analyze_workout_types(workouts)
+
+    analyze_user(users, "Анна", workouts)
+
+    print("Поиск тренировок пользователя 'Анна':")
+    anna_workouts = find_user_workouts(users, "Анна")
+    print(f"Найдено {len(anna_workouts)} тренировок")
+    print()
+
+    visualize_data(users, workouts, workout_types)
+
+if __name__ == "__main__":
+    main()
