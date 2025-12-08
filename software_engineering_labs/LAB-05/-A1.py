@@ -45,3 +45,21 @@ def load_workouts_data():
     except FileNotFoundError:
         print("Файл workouts.xml не найден")
         return []
+
+
+def get_stats(users, workouts):
+
+    total_workouts = len(workouts)
+    total_users = len(users)
+    total_calories = sum(workout['calories'] for workout in workouts)
+    total_time_hours = sum(workout['duration'] for workout in workouts) / 60.0
+    total_distance = sum(workout['distance'] for workout in workouts)
+
+    print("ОБЩАЯ СТАТИСТИКА")
+    print("=" * 60)
+    print(f"Всего тренировок: {total_workouts}")
+    print(f"Всего пользователей: {total_users}")
+    print(f"Сожжено калорий: {total_calories}")
+    print(f"Общее время: {total_time_hours:.1f} часов")
+    print(f"Пройдено дистанции: {total_distance:.1f} км")
+    print()
