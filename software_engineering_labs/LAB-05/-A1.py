@@ -173,3 +173,60 @@ def analyze_user(users, user_name, workouts):
     print(f"Средние калории за тренировку: {avg_calories_per_workout:.0f}")
     print(f"Любимый тип тренировки: {favorite_type}")
     print()
+
+
+def visualize_data(users, workouts, workout_types):
+
+    plt.figure(figsize=(15, 5))
+
+    plt.subplot(1, 3, 1)
+    labels = list(workout_types.keys())
+    sizes = [workout_types[type_]['count'] for type_ in labels]
+    colors = ['#ff9999', '#66b3ff', '#99ff99', '#ffcc99', '#c2c2f0']
+    plt.pie(sizes, labels=labels, autopct='%1.1f%%', colors=colors, startangle=90)
+    plt.title('Распределение по типам тренировок')
+
+    plt.subplot(1, 3, 2)
+    user_names = [user['name'] for user in users]
+    user_calories = []
+    for user in users:
+        user_workouts = [w for w in workouts if w['user_id'] == user['user_id']]
+        user_calories.append(sum(w['calories'] for w in user_workouts))
+
+    plt.bar(user_names, user_calories, color='skyblue')
+    plt.title('Активность пользователей по калориям')
+    plt.xlabel('Пользователи')
+    plt.ylabel('Калории')
+    plt.xticks(rotation=45, ha='right')
+
+    plt.subplot(1, 3, 3)
+    type_names = list(workout_types.keys())
+    type_avg_calories = [workout_types[type_]['total_calories'] / workout_types[type_]['count']
+                         for type_ in type_names]
+
+    plt.bar(type_names, type_avg_calories, color='lightgreen')
+    plt.title('Эффективность тренировок по типам')
+    plt.xlabel('Тип тренировки')
+    plt.ylabel('Средние калории')
+    plt.xticks(rotation=45, ha='right')
+
+    plt.tight_layout()
+    plt.show()
+
+    plt.figure(figsize=(10, 6))
+
+    user_calories_sorted = sorted(zip(user_names, user_calories),
+                                  key=lambda x: x[1], reverse=True)[:5]
+
+    sorted_names, sorted_calories = zip(*user_calories_sorted)
+
+    plt.bar(sorted_names, sorted_calories, color=['gold', 'silver', 'brown', 'skyblue', 'lightgreen'])
+    plt.title('Сравнение пользователей по общим затраченным калориям (ТОП-5)')
+    plt.xlabel('Пользователи')
+    plt.ylabel('Калории')
+
+    for i, v in enumerate(sorted_calories):
+        plt.text(i, v + 50, str(v), ha='center')
+
+    plt.tight_layout()
+    plt.show()
